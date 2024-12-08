@@ -1,0 +1,87 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="form" class="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg space-y-6">
+    <!-- Client Name -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700" for="name">Nom:</label>
+      <input class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="name" id="name" placeholder="Enter client name"
+             type="text" />
+    </div>
+  
+    <div>
+      <label class="block text-sm font-medium text-gray-700" for="professionalName">Professionnel:</label>
+      <select class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="professionalName"
+              id="professionalName">
+        <option *ngFor="let professional of professionals" [value]="professional">{{ professional }}</option>
+      </select>
+    </div>
+  
+    <!-- Availability -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700" for="availability">Date:</label>
+      <input class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="availability" id="availability"
+             type="time" />
+    </div>
+  
+    <!-- Compagnants Section -->
+    <div formArrayName="compagnants">
+      <label class="block text-sm font-medium text-gray-700">Compagnants:</label>
+      <div *ngFor="let compagnon of compagnants.controls; let i = index" [formGroupName]="i" class="space-y-4">
+        <div class="flex space-x-4">
+          <div class="w-1/4">
+            <label class="block text-sm font-medium text-gray-700" for="nom">Nom:</label>
+            <input class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="nom" id="nom"
+                   placeholder="Nom" />
+          </div>
+  
+          <div class="w-1/4">
+            <label class="block text-sm font-medium text-gray-700" for="prenom">Prénom:</label>
+            <input class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="prenom" id="prenom"
+                   placeholder="Prénom" />
+          </div>
+  
+          <div class="w-1/4">
+            <label class="block text-sm font-medium text-gray-700" for="genre">Genre:</label>
+            <select class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="genre"
+                    id="genre">
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+  
+          <div class="w-1/4">
+            <label class="block text-sm font-medium text-gray-700" for="age">Age:</label>
+            <input class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" formControlName="age" id="age" placeholder="Age"
+                   type="number" />
+          </div>
+        </div>
+  
+        <!-- Remove button -->
+        <div class="flex justify-end">
+          <button (click)="removeCompagnant(i)" *ngIf="compagnants.length > 1" class="text-red-500 hover:text-red-700 font-semibold text-sm"
+                  type="button">Remove
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <div class="flex justify-start">
+      <button (click)="addCompagnant()" [disabled]="compagnants.length >= 3" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+              type="button">
+        Ajouter Compagnant
+      </button>
+    </div>
+  
+    <div class="flex justify-center">
+      <button [disabled]="!isFormValid" class="inline-flex items-center px-6 py-3 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+              type="submit">
+        Envoyer
+      </button>
+    </div>
+  
+    <div class="flex justify-start">
+      <a [routerLink]="'/listrdv'"
+         class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+        Aller vers la liste des rdvs
+        </a>
+    </div>
+  
+  </form>

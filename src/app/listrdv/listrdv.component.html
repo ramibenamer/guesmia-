@@ -1,0 +1,43 @@
+<!-- listrdv.component.html -->
+<div class="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg space-y-6">
+    <table class="min-w-full table-auto border-collapse">
+      <thead>
+      <tr>
+        <th class="px-4 py-2 border-b">Nom client</th>
+        <th class="px-4 py-2 border-b">Professionnel</th>
+        <th class="px-4 py-2 border-b">Date</th>
+        <th class="px-4 py-2 border-b">Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let rdv of rdvList">
+        <td class="px-4 py-2 border-b">{{ rdv.name }}</td>
+        <td class="px-4 py-2 border-b">{{ rdv.professionalName }}</td>
+        <td class="px-4 py-2 border-b">{{ rdv.availability }}</td> <!-- Display availability directly -->
+        <td class="px-4 py-2 border-b">
+          <button (click)="showDetails(rdv)" class="text-blue-500 hover:underline">
+            Details
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  
+    <div *ngIf="selectedRdv" class="mt-6">
+      <h3 class="text-lg font-semibold">Compagnants for {{ selectedRdv.name }}</h3>
+      <ul *ngIf="selectedRdv.compagnants.length > 0; else noCompagnants">
+        <li *ngFor="let compagnon of selectedRdv.compagnants">
+          <p>{{ compagnon.nom }} {{ compagnon.prenom }} - Age: {{ compagnon.age }} - Genre: {{ compagnon.genre }}</p>
+        </li>
+      </ul>
+  
+      <ng-template #noCompagnants>
+        <p class="text-red-500">List vide</p>
+      </ng-template>
+  
+      <button (click)="closeDetails()" class="mt-4 text-blue-500 hover:underline">
+        Close Details
+      </button>
+    </div>
+  </div>
+  
